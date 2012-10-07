@@ -1,0 +1,158 @@
+/*PAGE*/
+.b-content_browse {
+	height: 100%;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+/* HEADER */
+.b-content_browse  .b-content__header {
+	width: 99%;
+	height: 50px;
+	
+	padding: 10px 0.5%;
+	
+	border: solid black;
+	border-width: 0px 0px 1px 0px;
+}
+
+/* TITLE */
+.b-content_browse .b-content__title {
+	float: left;
+	height: 100%;
+	margin: 0px;
+	line-height: 100%;
+	vertical-align: middle;
+}
+
+/* MENU */
+.b-content_browse .b-content__header .b-menu {
+	float: right;
+	height: 100%;
+}
+
+.b-content_browse .b-menu_toolbar .b-menu_menu-item {
+	float: right;
+	height: 100%;
+	width: 150px
+}
+
+/* CONTENT */
+.b-content_browse .b-content__wrapper {
+	height: 100%; /*height is adaptively set in js*/
+	overflow: auto;
+}
+
+.b-content_browse .b-content__stub {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0px;
+	height: 100%
+}
+
+.b-content_browse .b-curriculum {
+	margin-top: 5%;
+	height: 90%;
+}
+
+.b-content_browse .b-curriculum  .b-curriculum__week {
+	width: 100%;
+	min-height: 100;
+	height: 12%;
+	max-height: 15%;
+	
+	padding: 0px;
+	margin: -1px 0px 0px 0px;
+	
+	display: table;
+	border-collapse: collapse;
+}
+
+.b-content_browse .b-curriculum__day {
+	display: table-cell;
+	height: 100%;
+	width: 14%;
+	min-width: 130px;
+	border: solid black 1px;
+	z-index: 10;
+}
+
+.b-content_browse .b-curriculum__day-header{
+	height: 2em;
+	line-height: 2em;
+	vertical-align: middle;
+	padding: 0px 5px;
+}
+
+.b-content_browse .b-curriculum__day-date{
+	cursor: default;
+	height: 100%;
+}
+
+.b-content_browse .b-curriculum__day-name{
+	float: right;
+	/*font-weight: bold;*/
+	cursor: default;
+}
+
+.b-content_browse .b-curriculum__day.b-curriculum__day_disabled {
+	background: #efefef;
+	color: #aeaeae;
+}
+
+.b-content_browse .b-curriculum__day:hover {
+	background-color: #ffeeaa;
+}
+
+.b-content_browse .b-curriculum__lectures-list{
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+.b-content_browse .b-curriculum__lecture{
+	margin-bottom: 3px;
+	
+	background-color: #efffef;
+	
+	border-color: black;
+	border-style: solid;
+	border-width: 1px 0px;
+	
+	cursor: pointer;
+}
+
+.b-content_browse .b-curriculum__lecture-title,
+.b-content_browse .b-curriculum__lecture-person {
+	display:block;
+	/*white-space: nowrap;*/
+}
+
+.b-content_browse .b-curriculum__lecture-title
+{
+}
+
+.b-content_browse .b-curriculum__lecture-person
+{
+	font-size: small;
+	font-style: italic;
+}
+
+/* FOOTER */
+.b-content_browse .b-content__footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 25px;
+	
+	padding-top: 10px;
+	
+	
+	text-align: center;
+	border: solid black;
+	border-width: 1px 0px 0px 0px;
+	
+}
