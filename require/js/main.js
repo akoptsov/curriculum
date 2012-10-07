@@ -1,29 +1,23 @@
 define(function(require, exports, module){
 	var $ = require('jquery'),
 		bus = require('js/event-bus'),
-		storage = require('js/storage');
+		storage = require('js/storage'),
+		global = require('js/global');
 	
 	$(function(){
-		bus.on('click', function(){
-			alert('clicked!');
-		});
+				
+		var doc = $(this),
+			window = $(global),
+			headerHeight = doc.find('.b-content__header').outerHeight(),
+			footerHeight = doc.find('.b-content__footer').outerHeight(),
+			wrapper = doc.find('.b-content__wrapper');
 		
-		$('body').click(function(){
-			bus.emit('click');
-		});
-		
-		if(storage.supported){
-			console.log('localStorage is supported');
-			var a = {
-				'foo': 'bar',
-				'wee': new Date()
-			}
-			storage.set('my-key', a);
-			console.log('Storage has "my-key": ', storage.has('my-key'));
-			console.log('Storage[my-key]: ', storage.get('my-key'));
-			console.log('Storage[other-key]: ', storage.get('other-key'));
-			storage.remove('my-key');
-			storage.remove('some-other-key')
+		//hack to have a fixed-height container in the page with scrollable content;
+		function adapt(){
+			wrapper.height(window.height() - headerHeight - footerHeight);
 		}
+		
+		adapt();
+		$(window).resize(adapt);
 	});
 });
