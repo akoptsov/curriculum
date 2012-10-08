@@ -67,12 +67,26 @@ define(function(require, exports, module) {
 			firstDate.setDate(firstDate.getDate() - firstDate.getDay() + 1); //monday of the same week
 			lastDate.setDate(firstDate.getDate() + 6 - firstDate.getDay());  //sunday of the same week
 			
-			var dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-				
+			var dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+				week = [];
+			
 			for(var i = new Date(firstDate.getTicks()); i<=lastDate; i.setDate(i.getDate() + 1)){
+				var day = {
+					day: dayNames[i.getDay()],
+					date: (i.getMonth() + 1) + '.' + i.getDay(),
+					lectures=[]
+				};
+				week.push(day);
 				
+				if(i.getDay() === 0) {
+					_weeks.push(week);
+					week = [];
+				}
 			}
 		}
 		
 	}
+	
+	exports.Model = Model;
+	
 });
