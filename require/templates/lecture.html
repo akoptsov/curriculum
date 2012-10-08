@@ -1,0 +1,18 @@
+<li class="b-curriculum__lecture">
+	<span class="b-curriculum__lecture-title">
+		{{title}}
+	</span>
+	<span class="b-curriculum__lecture-person">
+		{{person}}
+	</span>
+	<span class="b-curriculum__lecture-items">
+		{{#if presentation}}
+		<span class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation">
+		</span>
+		{{/if}}
+		{{# if video }}
+		<span class="b-curriculum__lecture-item b-curriculum__lecture-item_video">
+		</span>
+		{{/if}}
+	</span>
+</li>
