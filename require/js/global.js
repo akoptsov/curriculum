@@ -1,4 +1,4 @@
-/**
+﻿/**
  * "Dirty" module
  */
 define(['require'], function(require){

@@ -1,4 +1,4 @@
-define(function(require, exports, module){
+﻿define(function(require, exports, module){
 	var window = require('./global'),
 		json = window.JSON,
 		storage = window.localStorage;
