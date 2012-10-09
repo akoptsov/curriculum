@@ -80,11 +80,13 @@
 				week = [];
 			
 			for(var i = new Date(firstDate); i <= lastDate; i.setDate(i.getDate() + 1)){
-				var day = {
-					day: dayNames[i.getDay()],
-					date: (i.getMonth() + 1) + (i.getDate() > 9 ? '.' : '.0') + i.getDate(),
-					lectures: _dates[toISOdate(i)] || []
-				};
+				var date = i.getDate(),
+					month = i.getMonth() + 1,
+					day = {
+						day: dayNames[i.getDay()],
+						date: date + (month > 9 ? '.' : '.0') + month,
+						lectures: _dates[toISOdate(i)] || []
+					};
 				week.push(day);
 				
 				if(i.getDay() === 0) {

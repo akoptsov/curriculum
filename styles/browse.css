@@ -10,33 +10,40 @@
 /* HEADER */
 .b-content_browse  .b-content__header {
 	width: 99%;
-	height: 50px;
-	
+	height: 55px;
+
 	padding: 10px 0.5%;
-	
 	border: solid black;
 	border-width: 0px 0px 1px 0px;
+	white-space: nowrap;
 }
 
 /* TITLE */
 .b-content_browse .b-content__title {
-	float: left;
-	height: 100%;
-	margin: 0px;
+	height: 30px;
 	line-height: 100%;
+	margin: 0px;
 	vertical-align: middle;
 }
 
 /* MENU */
 .b-content_browse .b-content__header .b-menu {
-	float: right;
-	height: 100%;
+	text-align: right;
 }
 
 .b-content_browse .b-menu_toolbar .b-menu_menu-item {
-	float: right;
-	height: 100%;
-	width: 150px
+	display: inline-block;
+	text-align: center;
+	padding: 3px 5px;
+	height: 20px;
+	min-width: 120px;
+	border: solid black 1px;
+	cursor: pointer;
+}
+
+.b-content_browse .b-menu_toolbar .b-menu_menu-item:hover {
+	color: red;
+	border-color: red;
 }
 
 /* CONTENT */
@@ -55,29 +62,30 @@
 
 .b-content_browse .b-curriculum {
 	margin-top: 5%;
-	height: 90%;
+	margin-left:auto;
+	margin-right: auto;
+	display: table;
+	min-width: 1120px;
+	table-layout: fixed;
+	border-collapse: collapse;
 }
 
 .b-content_browse .b-curriculum  .b-curriculum__week {
-	width: 100%;
-	min-height: 100;
-	height: 12%;
-	max-height: 15%;
+	display: table-row;
 	
+	list-style-type: none;
 	padding: 0px;
-	margin: -1px 0px 0px 0px;
-	
-	display: table;
-	border-collapse: collapse;
+	margin: 0px;
 }
 
 .b-content_browse .b-curriculum__day {
 	display: table-cell;
-	height: 100%;
-	width: 14%;
-	min-width: 130px;
+
+	width: 160px;
+	height: 120px;
+	
+	vertical-align: top;
 	border: solid black 1px;
-	z-index: 10;
 }
 
 .b-content_browse .b-curriculum__day-header{
@@ -85,6 +93,7 @@
 	line-height: 2em;
 	vertical-align: middle;
 	padding: 0px 5px;
+	font-size: 0.9em;
 }
 
 .b-content_browse .b-curriculum__day-date{
@@ -94,7 +103,6 @@
 
 .b-content_browse .b-curriculum__day-name{
 	float: right;
-	/*font-weight: bold;*/
 	cursor: default;
 }
 
@@ -128,16 +136,17 @@
 .b-content_browse .b-curriculum__lecture-title,
 .b-content_browse .b-curriculum__lecture-person {
 	display:block;
-	/*white-space: nowrap;*/
+	
 }
 
 .b-content_browse .b-curriculum__lecture-title
 {
+	font-size: 0.9em;
 }
 
 .b-content_browse .b-curriculum__lecture-person
 {
-	font-size: small;
+	font-size: 0.7em;
 	font-style: italic;
 }
 
