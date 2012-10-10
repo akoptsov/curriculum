@@ -1,35 +1,13 @@
 ﻿<td class="b-curriculum__day {{#if lectures.length}} {{else}}b-curriculum___day_disabled {{/if}}">
 	<div class="b-curriculum__day-header">
 		<span class="b-curriculum__day-date">
-			{{date}}
+			{{display.date}}
 		</span>
 		<span class="b-curriculum__day-name">
-			{{day}}
+			{{display.day}}
 		</span>
 	</div>
 	<ul	class="b-curriculum__lectures-list">
-		{{#lectures}}
-			<li class="b-curriculum__lecture">
-				<span class="b-curriculum__lecture-time">
-					{{start}}&nbsp;-&nbsp;{{end}}
-				</span>
-				<span class="b-curriculum__lecture-title">
-					{{title}}
-				</span>
-				<span class="b-curriculum__lecture-person">
-					{{person}}
-				</span>
-				<span class="b-curriculum__lecture-items">
-					{{#if presentation}}
-					<span class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation">
-					</span>
-					{{/if}}
-					{{# if video }}
-					<span class="b-curriculum__lecture-item b-curriculum__lecture-item_video">
-					</span>
-					{{/if}}
-				</span>
-			</li>
-		{{/lectures}}
+
 	</ul>
 </td>

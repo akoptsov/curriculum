@@ -45,15 +45,35 @@
 				var container = $('.b-curriculum');
 				
 				if(container.length) {
-					for(var i = 0, length = model.length; i < length; i++){
-						var week = $(exports.week(model[i]));
-						for(var j = 0, l2 = model[i].length; j < l2; j++) {
-							var day = $(exports.day(model[i][j]));
-							day.data(model[i][j]);
-							week.append(day);
-						}
-						container.append(week);
-					}
+					$.each(model, function(i, week){
+						var $week = $(exports.week(week));
+						
+						$.each(week.days, function(j, day){
+							var $day = $(exports.day(day)),
+								$lectures = $day.find('.b-curriculum__lectures-list');
+
+							$.each(day.lectures, function(k, lecture){
+								var $lecture = $(exports.lecture(lecture));
+								$lecture.data(lecture).appendTo($lectures);
+							});
+							
+							$day.data(day).appendTo($week);
+							/*
+							$day.click(function(){
+								var data = $(this).data();
+								model.add({
+									date: data.isoDate,
+									starts: '09:00',
+									ends: '11:00',
+									title: 'Новая лекция',
+									person: 'Иванов И.И.'
+								});
+							});
+							*/
+						});
+						
+						container.append($week);
+					});
 				}
 			});	
 		});

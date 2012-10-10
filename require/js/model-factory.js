@@ -1,22 +1,15 @@
 ﻿define(function(require, exports, module) {
 	
-	/*
-	function Lecture(obj) {
-		this.title = obj.title;
-		this.person = obj.person;
-		this.date = obj.date;
-		this.presentation = obj.presentation;
-		this.video = obj.video;
-	};
-	*/
+	function d2(num){
+		return (num < 10 ? '0' : '') + num;
+	}
 	
-	function toISOdate(date) {
-		var year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate();
-		return year + (month < 10 ? '-0': '-') + month + (day < 10 ? '-0': '-') + day;
+	function toISODate(date) {
+		return date.getFullYear() + '-' + d2(date.getMonth() + 1) + '-' + d2(date.getDate());
 	}
 	
 	var _isodate = /\s*(\d+)-(\d+)-(\d+)\s*/;
-	function fromISOdate(str) {
+	function fromISODate(str) {
 		var match = _isodate.exec(str);
 		if (match === null || match.length < 4) {
 			console.log('failed to parse an ISO date from ', str);
@@ -34,67 +27,168 @@
 		return new Date(year, month, day, 0, 0, 0, 0);
 	}
 	
+	function monday(date) {
+		var result = new Date(date),
+			day = result.getDay();
+			
+		result.setDate(result.getDate() - (day ? day : 7) + 1);
+		return result;
+	}
 	
-	function Model(lectures) {
-		var _lectures = [];
-			_dates = {};
+	function sunday(date) {
+		var result = new Date(date),
+			day = result.getDay();
+			
+		day && result.setDate(result.getDate() - day + 7);
+		return result;
+	}
+
+	var _dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+	function Day(date){
+		this.isoDate = toISODate(date);
+		this.display = {
+			day : _dayNames[date.getDay()],
+			date : date.getDate() + '.' + d2(date.getMonth() + 1)
+		};
+		this.lectures = [];
+	}
+	
+	Day.prototype.add = function(lecture) {
+
+		var lectures = this.lectures,
+			length = lectures.length,
+			i = 0;
 		
+		
+		while(i < length && lectures[i].starts > lecture.starts){
+			i++;
+		}
+		
+		lectures.splice(i, 0, lecture);
+		
+		return this;
+	}
+	
+	Day.prototype.remove = function(lecture) {
+		var lectures = this.lectures,
+			length = lectures.length,
+			i = 0;
+		
+		while (i < length && lectures[i] !== lecture) {
+			i++;
+		}
+		
+		if (i < length) {
+			lectures.splice(i, 1);
+		}
+		
+		return this;
+	}
+	
+	function Week(date) {
+		var start = this.monday = monday(date);
+		var end = this.sunday = sunday(date);
+		var days = this.days = [];
+		
+		for(var i = new Date(start); i <= end; i.setDate(i.getDate() + 1)) {
+			days.push(new Day(i));
+		};
+	}
+	
+	Week.prototype.contains = function (date) {
+		return this.monday <= date && this.sunday >=date;
+	};
+	
+	Week.prototype.day = function(date) {
+		if(this.contains(date)) {
+			return this.days[(date.getDay() + 6) % 7];
+		}
+	};
+	
+	function Model(lecturesList) {
+
+		var _lectures = [],
+			_weeks = [],
+			_start,
+			_end;
+
 		function add(lecture){
 			if(!lecture.date) {
 				console.error('can\'t add a lecture without date!');
 			}
-			
+			_lectures = _lectures || [];
+
 			var index = 0, 
 				length = _lectures.length;
-			
-			if(length){
-				while(index < length && _lectures[index].date <= lecture.date  ) {
-					index++;
-				}
-				_lectures.splice(index, 0, lecture);
-			} else {
-				_lectures.push(lecture);
+
+			while(index < length && _lectures[index].date < lecture.date  ) {
+				index++;
 			}
-			
-			_dates[lecture.date] = _dates[lecture.date] || [];
-			_dates[lecture.date].push(lecture);
+			while(index < length && _lectures[index].date == lecture.date && _lectures[index].start < lecture.start){
+				index++;
+			}
+
+			_lectures.splice(index, 0, lecture);
+
+			day(lecture.date).add(lecture);
 			
 		}
 		
-		if(lectures.length) {
-			for(var i = 0, count = lectures.length; i < count; i++){
-				add(lectures[i]);
-			}
-		}
-		
-		var _weeks = [];
-		
-		if(_lectures.length) {
-			var firstDate = fromISOdate(_lectures[0].date),
-				lastDate = fromISOdate(_lectures[_lectures.length - 1].date);
+		function day(isoDate) {
+			var date = fromISODate(isoDate);
 			
-			firstDate.setDate(firstDate.getDate() - firstDate.getDay() + 1); //monday of the same week
-			lastDate.setDate(lastDate.getDate() + 7 - lastDate.getDay());    //sunday of the same week
-			
-			var dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-				week = [];
-			
-			for(var i = new Date(firstDate); i <= lastDate; i.setDate(i.getDate() + 1)){
-				var date = i.getDate(),
-					month = i.getMonth() + 1,
-					day = {
-						day: dayNames[i.getDay()],
-						date: date + (month > 9 ? '.' : '.0') + month,
-						lectures: _dates[toISOdate(i)] || []
-					};
-				week.push(day);
+			var week;
+			if(!_weeks.length) {
+				week = new Week(date); 
 				
-				if(i.getDay() === 0) {
-					_weeks.push(week);
-					week = [];
+				_weeks.push(week);
+				_start = week.monday;
+				_end = week.sunday;
+				
+			} else {
+				while(_start > date) {
+					week = prependWeek();
+				}
+				while (_end < date) {
+					week = appendWeek();
+				}
+				if(!week) {
+					var i = 0;
+					do {
+						week =  _weeks[i++];
+					} while (!week.contains(date))
+				}
+			}
+			
+			return week && week.day(date);
+			
+		}
+		
+		function prependWeek() {
+			_start.setDate(_start.getDate() - 7);
+			
+			var newWeek = new Week(_start);
+			_weeks.splice(0, 0, newWeek);
+			return newWeek;
+		}
+		
+		function appendWeek() {
+			_end.setDate(_end.getDate() + 7);
+			
+			var newWeek = new Week(_end);
+			_weeks.push(newWeek);
+			return newWeek;
+		}
+
+		function init(lectures){
+			if(lectures.length) {
+				for(var i = 0, count = lectures.length; i < count; i++){
+					add(lectures[i]);
 				}
 			}
 		}
+		
+		lecturesList && init(lecturesList);
 		
 		this.data = _weeks;
 	}
