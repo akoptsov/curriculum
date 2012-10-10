@@ -1,6 +1,5 @@
 ﻿define(function(require, exports, module){
 	var $ = require('jquery'),
-		bus = require('js/event-bus'),
 		storage = require('js/storage'),
 		global = require('js/global'),
 		factory = require('js/model-factory'),
@@ -56,7 +55,7 @@
 			}
 		];
 
-		ui.init(factory.create(data).data);
+		ui.init(factory.create(data));
 		
 	});
 });

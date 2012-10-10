@@ -1,4 +1,11 @@
 ﻿define(function(require, exports, module) {
+	var events = require('./events');
+	
+	function proxy(context, func){
+		return function(){
+			func.apply(context, Array.prototype.slice.call(arguments, 0));
+		}
+	}
 	
 	function d2(num){
 		return (num < 10 ? '0' : '') + num;
@@ -51,6 +58,11 @@
 			date : date.getDate() + '.' + d2(date.getMonth() + 1)
 		};
 		this.lectures = [];
+		var _emitter = new events.Emitter();
+		
+		this.on = proxy(this, _emitter.on);
+		this.emit = proxy(this, _emitter.emit);
+		this.off = proxy(this, _emitter.off);
 	}
 	
 	Day.prototype.add = function(lecture) {
@@ -66,6 +78,8 @@
 		
 		lectures.splice(i, 0, lecture);
 		
+		this.emit('add', i, lecture);
+		
 		return this;
 	}
 	
@@ -79,9 +93,9 @@
 		}
 		
 		if (i < length) {
-			lectures.splice(i, 1);
+			this.emit('remove', i, lectures.splice(i, 1));
 		}
-		
+
 		return this;
 	}
 	
@@ -142,8 +156,8 @@
 				week = new Week(date); 
 				
 				_weeks.push(week);
-				_start = week.monday;
-				_end = week.sunday;
+				_start = new Date(week.monday);
+				_end = new Date(week.sunday);
 				
 			} else {
 				while(_start > date) {
@@ -190,8 +204,9 @@
 		
 		lecturesList && init(lecturesList);
 		
-		this.data = _weeks;
-	}
+		this.weeks = _weeks;
+		this.add = add;
+	};
 	
 	exports.create = function(lectures){
 		return new Model(lectures);

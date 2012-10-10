@@ -1,6 +1,8 @@
 ﻿define(function(require, exports, module){
-	require('handlebars');
 	$ = require('jquery');
+	require('handlebars');
+	require('jquery-ui');
+	
 	
 	function addTemplate(name, template){
 		if(!Handlebars) {
@@ -38,38 +40,80 @@
 	exports.init = function(model){
 		$(function(){
 			ready.subscribe(function(){
-				if(!model.length) {
+				if(!model.weeks.length) {
 					return;
 				}
 				
 				var container = $('.b-curriculum');
 				
 				if(container.length) {
-					$.each(model, function(i, week){
+					$.each(model.weeks, function(i, week){
 						var $week = $(exports.week(week));
 						
 						$.each(week.days, function(j, day){
 							var $day = $(exports.day(day)),
 								$lectures = $day.find('.b-curriculum__lectures-list');
 
-							$.each(day.lectures, function(k, lecture){
+							var widget = function(lecture) {
 								var $lecture = $(exports.lecture(lecture));
-								$lecture.data(lecture).appendTo($lectures);
-							});
+								/*
+								$lecture.dblclick(function(e){
+									day.remove(lecture);
+									e.stopPropagation();
+								});
+								*/
+								function edit(data, callback){
+									var clone = $.extend(true, {}, data);
+									//here the dialog will change the function
+									data.title = data.title + '!';
+									callback(data);
+								}
+
+								$lecture.click(function(e){
+									edit(lecture, function(changed){
+										if(lecture.start!==changed.start || lecture.end!==changed.end){
+											day.remove(lecture);
+											day.add(changed);
+										} else {
+											$lecture.after(widget($.extend(true, lecture, changed)));
+											$lecture.remove();
+										}
+									});
+									e.stopPropagation();
+								});
+								
+								return $lecture.data(lecture);
+							}
 							
-							$day.data(day).appendTo($week);
-							/*
+							$lectures.empty();
+							$.each(day.lectures, function(k, lecture){
+								$lectures.append(widget(lecture));
+							});
+
 							$day.click(function(){
 								var data = $(this).data();
 								model.add({
 									date: data.isoDate,
-									starts: '09:00',
-									ends: '11:00',
-									title: 'Новая лекция',
+									start: data.lectures.length*2 + ':00',
+									end: data.lectures.length*2 + 2+ ':00',
+									title: 'Новая лекция' + (data.lectures.length ? (' ' + data.lectures.length) : '') ,
 									person: 'Иванов И.И.'
 								});
 							});
-							*/
+							
+							//переписать на вставку/изменение/удаление без очистки всех лекций
+							day.on('add', function(i, lecture){
+								var children = $lectures.children();
+								children[i] 
+									? $(children[i]).before(widget(lecture))
+									: $lectures.append(widget(lecture));
+							});
+							day.on('remove', function(i){
+								var children = $lectures.children();
+								children[i] && $(children[i]).remove();
+							});
+							
+							$day.data(day).appendTo($week);
 						});
 						
 						container.append($week);
