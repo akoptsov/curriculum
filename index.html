@@ -3,7 +3,8 @@
 <html>
 	<head>
 		<title>Онлайн-расписание ШРИ</title>
-		<link type="text/css" rel="stylesheet" href="/curriculum/styles/browse.css"/>
+		<link type="text/css" rel="stylesheet" href="styles/browse.css"/>
+		<link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.9.0.custom.min.css"/>
 	</head>
 	<body class="b-content b-content_browse">
 		<header class="b-content__header">
@@ -37,12 +38,16 @@
 			var require = {
 				baseUrl:'require',
 				paths : {
-					jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min',
-					handlebars: '//cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.rc.1'
+					'jquery': 'jquery-1.8.2.min',
+					'jquery-ui': 'jquery-ui-1.9.0.custom.min',
+					'handlebars': 'handlebars-1.0.rc.1'
 				},
-				urlArgs: '0.0.4'
+				shim: {
+					'jquery-ui': ['jquery']
+				},
+				urlArgs: '0.0.5'
 			};
 		</script>
-		<script src="//requirejs.org/docs/release/2.0.6/minified/require.js" data-main="js/main"></script>
+		<script src="require/require-2.0.6.min.js" data-main="js/main"></script>
 	</body>
 </html>
