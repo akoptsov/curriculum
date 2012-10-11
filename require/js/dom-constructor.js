@@ -2,6 +2,7 @@
 	$ = require('jquery');
 	require('handlebars');
 	require('jquery-ui');
+	var storage = require('./storage');
 	
 	
 	function addTemplate(name, template){
@@ -40,11 +41,12 @@
 	exports.init = function(model){
 		$(function(){
 			ready.subscribe(function(){
+				var container = $('.b-curriculum');
+				
 				if(!model.weeks.length) {
 					return;
 				}
 				
-				var container = $('.b-curriculum');
 				
 				if(container.length) {
 					$.each(model.weeks, function(i, week){
@@ -56,12 +58,11 @@
 
 							var widget = function(lecture) {
 								var $lecture = $(exports.lecture(lecture));
-								/*
-								$lecture.dblclick(function(e){
+								
+								$lecture.on('click', '.b-curriculum__lecture-remove', function(e){
 									day.remove(lecture);
 									e.stopPropagation();
 								});
-								*/
 								function edit(data, callback){
 									var clone = $.extend(true, {}, data);
 									//here the dialog will change the function
@@ -92,10 +93,11 @@
 
 							$day.click(function(){
 								var data = $(this).data();
+								var n = data.lectures.length * 2;
 								model.add({
 									date: data.isoDate,
-									start: data.lectures.length*2 + ':00',
-									end: data.lectures.length*2 + 2+ ':00',
+									start:  (n < 10? '0':'') + n + ':00',
+									end: ((n + 2) < 10? '0': '') + (n + 2) + ':00',
 									title: 'Новая лекция' + (data.lectures.length ? (' ' + data.lectures.length) : '') ,
 									person: 'Иванов И.И.'
 								});
@@ -115,8 +117,22 @@
 							
 							$day.data(day).appendTo($week);
 						});
-						
 						container.append($week);
+					});
+					
+					var menu = $('.b-menu');
+					var $buttons = {
+						save:  menu.find('.b-menu__menu-item_command_save'),
+						load:  menu.find('.b-menu__menu-item_command_load'),
+						print: menu.find('.b-menu__menu-item_command_print'),
+					};
+					
+					$buttons.save.click(function(e){
+
+					});
+					
+					$buttons.load.click(function(e){
+					
 					});
 				}
 			});	

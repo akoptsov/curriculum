@@ -10,7 +10,7 @@
 /* HEADER */
 .b-content_browse  .b-content__header {
 	width: 99%;
-	height: 55px;
+	height: 60px;
 
 	padding: 10px 0.5%;
 	border: solid black;
@@ -31,24 +31,28 @@
 	text-align: right;
 }
 
-.b-content_browse .b-menu_toolbar .b-menu_menu-item {
+.b-content_browse .b-menu_view_toolbar .b-menu__menu-item {
 	display: inline-block;
 	text-align: center;
-	padding: 3px 5px;
+	padding: 5px 5px;
 	height: 20px;
 	min-width: 120px;
 	border: solid black 1px;
 	cursor: pointer;
 }
 
-.b-content_browse .b-menu_toolbar .b-menu_menu-item:hover {
+.b-content_browse .b-menu_view_toolbar .b-menu__menu-item:hover {
 	color: red;
 	border-color: red;
 }
 
 /* CONTENT */
 .b-content_browse .b-content__wrapper {
-	height: 100%; /*height is adaptively set in js*/
+	position: absolute;
+	top: 81px;
+	bottom: 35px;
+	left: 0px;
+	right: 0px;
 	overflow: auto;
 }
 
@@ -61,9 +65,7 @@
 }
 
 .b-content_browse .b-curriculum {
-	margin-top: 5%;
-	margin-left:auto;
-	margin-right: auto;
+	margin: 5% auto;
 	display: table;
 	min-width: 1120px;
 	table-layout: fixed;
@@ -86,6 +88,14 @@
 	
 	vertical-align: top;
 	border: solid black 1px;
+	padding-bottom: 2em;
+	
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none; 
+	-ms-user-select: none; 
+	user-select: none; 
 }
 
 .b-content_browse .b-curriculum__day-header{
@@ -131,12 +141,22 @@
 	border-width: 1px 0px;
 	
 	cursor: pointer;
+	
 }
 
 .b-content_browse .b-curriculum__lecture-title,
 .b-content_browse .b-curriculum__lecture-person {
 	display:block;
 	
+}
+
+.b-content_browse .b-curriculum__lecture-remove{
+	display:none;
+	float: right;
+}
+
+.b-content_browse .b-curriculum__lecture:hover .b-curriculum__lecture-remove{
+	display: inline;
 }
 
 .b-content_browse .b-curriculum__lecture-title
@@ -158,8 +178,7 @@
 	height: 25px;
 	
 	padding-top: 10px;
-	
-	
+
 	text-align: center;
 	border: solid black;
 	border-width: 1px 0px 0px 0px;

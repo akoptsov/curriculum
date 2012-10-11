@@ -5,23 +5,9 @@
 		factory = require('js/model-factory'),
 		ui = require('js/dom-constructor')
 	
-	$(function(){
-				
-		var doc = $(this),
-			window = $(global),
-			headerHeight = doc.find('.b-content__header').outerHeight(),
-			footerHeight = doc.find('.b-content__footer').outerHeight(),
-			wrapper = doc.find('.b-content__wrapper');
 		
-		//hack to have a fixed-height container in the page with scrollable content;
-		function adapt(){
-			wrapper.height(window.height() - headerHeight - footerHeight);
-		}
-		
-		adapt();
-		$(window).resize(adapt);
-		
-		var data = [
+		var data = storage.get('curriculum');
+		data = data || [
 			{
 				title: 'Дизайн глазами проектировщика интерфейсов',
 				person: 'Иванов С.П.',
@@ -54,8 +40,9 @@
 				date: '2012-10-29'
 			}
 		];
-
-		ui.init(factory.create(data));
 		
-	});
+		
+		
+		ui.init(factory.create(data));
+
 });

@@ -70,9 +70,8 @@
 		var lectures = this.lectures,
 			length = lectures.length,
 			i = 0;
-		
-		
-		while(i < length && lectures[i].starts > lecture.starts){
+
+		while (i < length && lectures[i].start < lecture.start) {
 			i++;
 		}
 		
@@ -108,7 +107,7 @@
 			days.push(new Day(i));
 		};
 	}
-	
+
 	Week.prototype.contains = function (date) {
 		return this.monday <= date && this.sunday >=date;
 	};
@@ -118,7 +117,7 @@
 			return this.days[(date.getDay() + 6) % 7];
 		}
 	};
-	
+
 	function Model(lecturesList) {
 
 		var _lectures = [],
@@ -173,9 +172,7 @@
 					} while (!week.contains(date))
 				}
 			}
-			
 			return week && week.day(date);
-			
 		}
 		
 		function prependWeek() {
@@ -202,10 +199,15 @@
 			}
 		}
 		
+		function data() {
+			return _lectures;
+		}
+		
 		lecturesList && init(lecturesList);
 		
 		this.weeks = _weeks;
 		this.add = add;
+		this.lectures = data;
 	};
 	
 	exports.create = function(lectures){
