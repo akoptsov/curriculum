@@ -1,9 +1,15 @@
 ﻿define(function(require, exports, module){
 	$ = require('jquery');
 	require('handlebars');
-	require('jquery-ui');
+	
+	var events = require('./events');
+	var dialog = require('./ui/dialog');
 	var storage = require('./storage');
 	
+	
+	var ready = new events.Promise(function(){
+		return exports.day && exports.lecture && exports.week;
+	});
 	
 	function addTemplate(name, template){
 		if(!Handlebars) {
@@ -12,6 +18,7 @@
 		exports[name] = Handlebars.compile(template);
 		ready.check();
 	}
+	
 	
 	require(['text!templates/day.html'], function(str){
 		addTemplate('day', str);
@@ -25,28 +32,15 @@
 		addTemplate('week', str);
 	});
 	
-	var ready = {
-		check: function (){
-			if(exports.week && exports.day && exports.lecture){
-				this.happened = true;
-				this.callback && this.callback();
-			} 
-		},
-		subscribe: function(callback){
-			this.callback = callback;
-			this.happened && this.callback();
-		}
-	};
-	
+
 	exports.init = function(model){
 		$(function(){
-			ready.subscribe(function(){
+			ready.success(function(){
 				var container = $('.b-curriculum');
 				
 				if(!model.weeks.length) {
 					return;
 				}
-				
 				
 				if(container.length) {
 					$.each(model.weeks, function(i, week){
@@ -63,23 +57,24 @@
 									day.remove(lecture);
 									e.stopPropagation();
 								});
-								function edit(data, callback){
-									var clone = $.extend(true, {}, data);
-									//here the dialog will change the function
-									data.title = data.title + '!';
-									callback(data);
+								
+								function edit(data, onchange, onremove){
+									dialog.change($lecture, data, onchange, onremove)
 								}
 
 								$lecture.click(function(e){
-									edit(lecture, function(changed){
-										if(lecture.start!==changed.start || lecture.end!==changed.end){
+									edit(lecture, function change(changed){
+											if(lecture.start!==changed.start || lecture.end!==changed.end){
+												day.remove(lecture);
+												day.add(changed);
+											} else {
+												$lecture.after(widget($.extend(true, lecture, changed)));
+												$lecture.remove();
+											}
+										}, 	function remove(){ 
 											day.remove(lecture);
-											day.add(changed);
-										} else {
-											$lecture.after(widget($.extend(true, lecture, changed)));
-											$lecture.remove();
 										}
-									});
+									);
 									e.stopPropagation();
 								});
 								
@@ -92,14 +87,18 @@
 							});
 
 							$day.click(function(){
+								
 								var data = $(this).data();
-								var n = data.lectures.length * 2;
-								model.add({
+								var initial = {
 									date: data.isoDate,
-									start:  (n < 10? '0':'') + n + ':00',
-									end: ((n + 2) < 10? '0': '') + (n + 2) + ':00',
-									title: 'Новая лекция' + (data.lectures.length ? (' ' + data.lectures.length) : '') ,
-									person: 'Иванов И.И.'
+									start: data.lectures.length ? data.lectures[data.lectures.length - 1].end : '12:00',
+								};
+								initial.end = initial.start.replace(/\d{2}:/, function(m){ 
+									return (parseInt(m) + 1) + ':';
+								});
+								
+								dialog.create($day, initial, function(lecture){
+									model.add(lecture);
 								});
 							});
 							

@@ -44,7 +44,41 @@
 		};
 	}
 	
+	function Promise(condition) {
+
+		var _callbacks = [], 
+			_happened = false,
+			_args = [];
+			
+		if(typeof condition !== 'function') {
+			console.error('Promise condition should be a function');
+			_happened = !!condition;
+			return;
+		}
+		
+		this.check = function (){
+			var args = Array.prototype.slice.call(arguments, 0);
+			if(condition.apply(args)){
+				_happened = true;
+				_args = args;
+				
+				for(var i = 0, count = _callbacks.length; i < count; i++) {
+					_callbacks[i].apply(this, args);
+				}
+			} 
+		}
+
+		this.success = function(callback){
+			if(!typeof callback === 'function')
+				return;
+				
+			_happened ? callback.apply(this, _args) : _callbacks.push(callback);
+		}
+		
+	}
+	
 	exports.Event = Event;
 	exports.Emitter = Emitter;
+	exports.Promise = Promise;
 	exports.Bus = new Emitter();
 });
