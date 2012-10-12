@@ -6,23 +6,32 @@
 	require('handlebars');
 	require('jquery-ui');
 	
-	var $change;
+	var change;
+	var textdata;
 	var $view;
-	var form;
+
 	var templates = {};
 	
 	var ready = new events.Promise(function(){
-		return templates.change && templates.view;
+		return templates.change && templates.view && templates.textdata;
 	});
 	
-	ready.success(function(){
-		$change = $(templates.change()); 
-		$change.dialog({
+	function _formDialog(html, dlgOpts, formOpts){
+		var defaults = {
 			autoOpen: false,
 			modal: true,
-			resizable: false,
-		});
-		form = new forms.Form($change, fields);
+			resizable: false
+		};
+		
+		var res = {};
+		res.dlg = $(html).dialog($.extend(true, defaults, dlgOpts));
+		res.form = new forms.Form(res.dlg, formOpts);
+		return res;
+	}
+	
+	ready.success(function(){
+		change =  _formDialog(templates.change(), {}, fields);
+		textdata =  _formDialog(templates.textdata(), {resizable: true, width: 'auto', maxWidth: 1000}, { data: {} });
 	})
 	
 	function addTemplate(name, template) {
@@ -39,6 +48,10 @@
 	
 	require(['text!templates/dialog/view.html'], function(template){
 		addTemplate('view', template);
+	});
+	
+	require(['text!templates/dialog/textdata.html'], function(template){
+		addTemplate('textdata', template);
 	});
 	
 	
@@ -100,14 +113,16 @@
 	};
 		
 
-		INVALID_CLASS = 'b-form__field_state_invalid',
+	var INVALID_CLASS = 'b-form__field_state_invalid',
 		ERR_MSG_CLASS = '.b-form__field-error-message';
 		
-	function finish(next) {
-		var errors = form.validate();
+	function finish(dialog, next) {
+		var form = dialog.form,
+			errors = form.validate();
 		if(errors.length){
 			$.each(errors, function(i, error){
-				var element = form.fields[error.name].element
+				var element = form.fields[error.name].element;
+				
 				element.parent()
 					.addClass(INVALID_CLASS)
 					.find(ERR_MSG_CLASS).text(error.message);
@@ -119,42 +134,61 @@
 			});
 		} else {
 			$.isFunction(next) && next(form.get());
-			$change.dialog('close');
+			dialog.dlg.dialog('close');
 		}
 	}
 	
 	function close(next) {
 		$.isFunction(next) && next();
-		$change.dialog('close');
+		$(this).dialog('close');
 	}
 	
 	
-	function open(data, opts){
+	function open(dialog, data, opts){
 		ready.success(function(){
-			form.bind(data);
-			$change.dialog('option', opts).dialog('open');
+			dialog.form.bind(data);
+			dialog.dlg.dialog('option', opts).dialog('open');
 		});
 	}
 	
 	exports.create = function(elem, data, next){
-		open(data, {
+		open(change, data, {
 			title: 'Новая лекция',
 			buttons: [
-				{text: 'ОК', click: function(){ finish(next); }},
+				{text: 'ОК', click: function(){ finish(change, next); }},
 				{text: 'Отмена', click: close }
 			]
 		});
 	};
 	
 	exports.change = function(elem, data, next, remove){
-		open(data, {
+		open(change, data, {
 			title: 'Изменить информацию',
 			buttons: [
-				{text: 'ОК', click: function(){ finish(next); }},
+				{text: 'ОК', click: function(){ finish(change, next); }},
 				{text: 'Отмена', click: close },
-				{text: 'Удалить', click: function() { close(remove); }}
+				{text: 'Удалить', click: function() { close.call(this, remove); }}
 			]
 		});
 	}
+	
+	exports.getJSON = function(next){
+		open(textdata, { }, {
+			title: 'Создать из JSON',
+			buttons: [
+				{text: 'ОК', click: function() { finish(textdata, next); }},
+				{text: 'Отмена', click: close },
+			]
+		});
+	};
+	
+	exports.provideJSON = function(text){
+		open(textdata, {data: text}, {
+			title: 'Расписание в формате JSON',
+			buttons: [
+				{text: 'ОК', click: close}
+			]
+		});
+	};
 	
 })

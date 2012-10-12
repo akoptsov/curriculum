@@ -41,8 +41,6 @@
 			}
 		];
 		
-		
-		
-		ui.init(factory.create(data));
+		ui.init(new factory.Model(data));
 
 });

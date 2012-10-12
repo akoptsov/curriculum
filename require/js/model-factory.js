@@ -118,35 +118,24 @@
 		}
 	};
 
-	function Model(lecturesList) {
+	function Model(data) {
 
 		var _lectures = [],
 			_weeks = [],
 			_start,
 			_end;
-
+			
+			var self = this;
+			_emitter = new events.Emitter();
+			
+		
 		function add(lecture){
 			if(!lecture.date) {
 				console.error('can\'t add a lecture without date!');
 			}
-			_lectures = _lectures || [];
-
-			var index = 0, 
-				length = _lectures.length;
-
-			while(index < length && _lectures[index].date < lecture.date  ) {
-				index++;
-			}
-			while(index < length && _lectures[index].date == lecture.date && _lectures[index].start < lecture.start){
-				index++;
-			}
-
-			_lectures.splice(index, 0, lecture);
-
 			day(lecture.date).add(lecture);
-			
 		}
-		
+
 		function day(isoDate) {
 			var date = fromISODate(isoDate);
 			
@@ -192,25 +181,45 @@
 		}
 
 		function init(lectures){
+			if(_weeks.length){
+				self.weeks = _weeks = [];
+				_emitter.emit('clear');
+			}
+			
 			if(lectures.length) {
 				for(var i = 0, count = lectures.length; i < count; i++){
 					add(lectures[i]);
 				}
 			}
+			
+
+			_emitter.emit('init');
 		}
 		
-		function data() {
-			return _lectures;
+		function lectures() {
+			var _all = [];
+			for(var i = 0, wLength = _weeks.length; i < wLength; i++){
+				for(var j = 0, dLength = _weeks[i].days.length; j < dLength; j++){
+					for(var l = 0, lLength = _weeks[i].days[j].lectures.length; l < lLength; l++){
+						_all.push(_weeks[i].days[j].lectures[l]);
+					}
+				}
+			}
+			return _all;
 		}
-		
-		lecturesList && init(lecturesList);
 		
 		this.weeks = _weeks;
+		this.lectures = lectures;
 		this.add = add;
-		this.lectures = data;
+		this.init = init;
+		
+		this.emit = proxy(this, _emitter.emit);
+		this.on = proxy(this, _emitter.on);
+		this.off = proxy(this, _emitter.off);
+		
+		data && init(data);
 	};
 	
-	exports.create = function(lectures){
-		return new Model(lectures);
-	}
+	exports.Model = Model;
+	
 });
