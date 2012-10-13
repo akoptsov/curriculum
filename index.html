@@ -2,6 +2,7 @@
 
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<title>Онлайн-расписание ШРИ</title>
 		<link type="text/css" rel="stylesheet" href="styles/browse.css"/>
 		<link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.9.0.custom.min.css"/>
@@ -26,9 +27,11 @@
 				<div class="b-menu__menu-item b-menu__menu-item_command_upload">
 					<span class="b-menu__menu-item-name">Из текста</span>
 				</div>
-				<div class="b-menu__menu-item b-menu__menu-item_command_print">
-					<span class="b-menu__menu-item-name">Печать</span>
-				</div>
+				<a class="b-menu__menu-navigation" href="print.html">
+					<div class="b-menu__menu-item b-menu__menu-item_command_print">
+						<span class="b-menu__menu-item-name">Печать</span>
+					</div>
+				</a>
 			</div>
 		</header>
 		<div class="b-content__wrapper">
@@ -51,9 +54,15 @@
 				shim: {
 					'jquery-ui': ['jquery']
 				},
-				urlArgs: '0.0.7'
+				config: {
+					'templates' : {
+						required: ['week', 'day', 'lecture', 'data', 'dialog-change', 'dialog-textdata']
+					}
+				},
+				urlArgs: '0.0.8'
 			};
 		</script>
 		<script src="require/require-2.0.6.min.js" data-main="js/main"></script>
 	</body>
 </html>
+

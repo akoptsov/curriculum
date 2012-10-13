@@ -1,0 +1,56 @@
+.b-content_print {
+	margin: 0px;
+	padding: 0px;
+	font-family: Times New Roman, Georgia, serif;
+}
+
+.b-content_print .b-curriculum {
+	padding-top: 20px;
+	font-size: 14pt;
+}
+
+.b-content_print .b-curriculum__week {
+	list-style-type: none;
+	margin: 0px;
+}
+
+.b-content_print .b-curriculum__day {
+	margin-bottom: 10px;
+}
+.b-content_print .b-curriculum__day-header {
+	font-size: 1.2em;
+	margin-bottom: 5px;
+}
+
+.b-content_print .b-curriculum__day-date {
+	font-weight: bold;
+}
+
+.b-content_print .b-curriculum__day-date:after {
+	content:',';
+	margin-left: -0.2em;
+}
+
+.b-content_print .b-curriculum__lectures-list {
+	list-style-type: disc;
+}
+
+.b-content_print .b-curriculum__lecture {
+
+}
+
+.b-content_print .b-curriculum__lecture-card{
+	display:none;
+}
+
+.b-content_print .b-curriculum__lecture-person {
+	display: block;
+	font-size: 0.9em;
+}
+
+.b-content_print .b-curriculum__day_state_empty {
+	display: none;
+}
+.b-content_print .b-curriculum__lecture-remove {
+	display:none;
+}

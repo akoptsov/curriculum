@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Печать расписания</title>
+		<link type="text/css" rel="stylesheet" href="styles/print.css"/>
+	</head>
+	<body class="b-content b-content_print">
+		<div class="b-content__wrapper">
+			<div class="b-content__stub"></div>
+			<div class="b-curriculum">
+				
+			</div>
+		</div>
+		<script>
+			var require = {
+				baseUrl:'require',
+				paths : {
+					'jquery': 'jquery-1.8.2.min',
+					'handlebars': 'handlebars-1.0.rc.1',
+					'jquery-ui': 'jquery-ui-1.9.0.custom.min',
+				},
+				shim: {
+					'jquery-ui': ['jquery']
+				},
+				urlArgs: '0.0.8'
+			};
+		</script>
+		<script src="require/require-2.0.6.min.js" data-main="js/print"></script>
+	</body>
+</html>

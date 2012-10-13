@@ -70,6 +70,8 @@
 	min-width: 1120px;
 	table-layout: fixed;
 	border-collapse: collapse;
+	
+	font-size: 12pt;
 }
 
 .b-content_browse .b-curriculum  .b-curriculum__week {
@@ -131,7 +133,7 @@
 	list-style-type: none;
 }
 
-.b-content_browse .b-curriculum__lecture{
+.b-content_browse .b-curriculum__lecture {
 	margin-bottom: 3px;
 	
 	background-color: #efffef;
@@ -143,6 +145,34 @@
 	cursor: pointer;
 	
 }
+.b-content_browse  .b-curriculum__lecture-card{
+	position:absolute;
+	max-height: 0px;
+	max-width: 0px;
+	display: none;
+	background-color: #efffef;
+	
+}
+
+.b-content_browse .b-curriculum__lecture:hover  .b-curriculum__lecture-card, 
+.b-content_browse  .b-curriculum__lecture-card:hover {
+	display: block;
+	min-width: 161px;
+	min-height: 121px;
+	max-width: 322px;
+	max-height: 1000px;
+	padding: 5px;
+	border: solid black 1px;
+	margin-left: -1px;
+	margin-top: -1px;
+	
+	-webkit-transition: max-height 1s ease-in-out 0s;
+	-moz-transition: max-height 0.3s ease-in-out 0s;
+	-ms-transition: max-height 0.3s ease-in-out 0s;
+	-o-transition: max-height 0.3s ease-in-out 0s;
+	transition: max-height 0.3s ease-in-out 0s;
+}
+
 
 .b-content_browse .b-curriculum__lecture-title,
 .b-content_browse .b-curriculum__lecture-person {

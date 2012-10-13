@@ -1,4 +1,4 @@
-﻿<td class="b-curriculum__day {{#if lectures.length}} {{else}}b-curriculum___day_disabled {{/if}}">
+﻿<li class="b-curriculum__day {{#unless lectures.length}}b-curriculum__day_state_empty {{/unless}}">
 	<div class="b-curriculum__day-header">
 		<span class="b-curriculum__day-date">
 			{{display.date}}
@@ -10,4 +10,4 @@
 	<ul	class="b-curriculum__lectures-list">
 
 	</ul>
-</td>
+</li>
