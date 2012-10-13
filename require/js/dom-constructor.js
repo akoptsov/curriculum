@@ -1,38 +1,10 @@
 ﻿define(function(require, exports, module){
-	$ = require('jquery');
-	require('handlebars');
-	
-	var events = require('./events');
+	var $ = require('jquery');
+	var templates = require('./templates');
 	var dialog = require('./ui/dialog');
 	var storage = require('./storage');
 	
 	
-	var ready = new events.Promise(function(){
-		return exports.day && exports.lecture && exports.week;
-	});
-	
-	function addTemplate(name, template){
-		if(!Handlebars) {
-			console.error('Handlebars is missing from global scope!');
-		}
-		exports[name] = Handlebars.compile(template);
-		ready.check();
-	}
-	
-	
-	require(['text!templates/day.html'], function(str){
-		addTemplate('day', str);
-	});
-	
-	require(['text!templates/lecture.html'], function(str){
-		addTemplate('lecture', str);
-	});
-	
-	require(['text!templates/week.html'], function(str){
-		addTemplate('week', str);
-	});
-	
-
 	function createModelDOM(container, model) {
 
 		if(!model.weeks.length) {
@@ -42,14 +14,14 @@
 		if(container.length) {
 
 			$.each(model.weeks, function(i, week){
-				var $week = $(exports.week(week));
+				var $week = $(templates.week(week));
 				
 				$.each(week.days, function(j, day){
-					var $day = $(exports.day(day)),
+					var $day = $(templates.day(day)),
 						$lectures = $day.find('.b-curriculum__lectures-list');
 
 					var widget = function(lecture) {
-						var $lecture = $(exports.lecture(lecture));
+						var $lecture = $(templates.lecture(lecture));
 						
 						$lecture.on('click', '.b-curriculum__lecture-remove', function(e){
 							day.remove(lecture);
@@ -128,7 +100,7 @@
 
 	exports.init = function(model){
 		$(function(){
-			ready.success(function(){
+			templates.ready.success(function(){
 				var container = $('.b-curriculum');
 
 				var menu = $('.b-menu');

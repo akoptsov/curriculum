@@ -1,4 +1,5 @@
-﻿<li class="b-curriculum__day {{#unless lectures.length}}b-curriculum__day_state_empty {{/unless}}">
+﻿{% raw %}
+<li class="b-curriculum__day {{#unless lectures.length}}b-curriculum__day_state_empty {{/unless}}">
 	<div class="b-curriculum__day-header">
 		<span class="b-curriculum__day-date">
 			{{display.date}}
@@ -11,3 +12,4 @@
 
 	</ul>
 </li>
+{% endraw %}

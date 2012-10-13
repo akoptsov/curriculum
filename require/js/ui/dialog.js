@@ -2,19 +2,13 @@
 	var $ = require('jquery');
 	var forms = require('./forms');
 	var events = require('js/events');
+	var templates = require('js/templates');
 	
-	require('handlebars');
 	require('jquery-ui');
 	
 	var change;
 	var textdata;
-	var $view;
-
-	var templates = {};
-	
-	var ready = new events.Promise(function(){
-		return templates.change && templates.view && templates.textdata;
-	});
+	var onready = templates.ready.success;
 	
 	function _formDialog(html, dlgOpts, formOpts){
 		var defaults = {
@@ -29,50 +23,7 @@
 		return res;
 	}
 	
-	ready.success(function(){
-		change =  _formDialog(templates.change(), {}, fields);
-		textdata =  _formDialog(templates.textdata(), {resizable: true, width: 'auto', maxWidth: 1000}, { data: {} });
-	})
-	
-	function addTemplate(name, template) {
-		if(!Handlebars){
-			console.error('Handlebars is missing from the global scope!');
-		}
-		templates[name] = Handlebars.compile(template);
-		ready.check();
-	}
-	
-	require(['text!templates/dialog/change.html'], function(template){
-		addTemplate('change', template);
-	});
-	
-	require(['text!templates/dialog/view.html'], function(template){
-		addTemplate('view', template);
-	});
-	
-	require(['text!templates/dialog/textdata.html'], function(template){
-		addTemplate('textdata', template);
-	});
-	
-	
-	var url = /^\s*(?:https?|ftp):\/\/.+/;
-	function _isUrl(){
-		var value = this.get();
-		if(!value) {
-			return []; //необязательное поле
-		}
 		
-		var exec = url.exec(this.get());
-		if(!(exec && exec.length)){
-			return [new forms.Error('format', this.name, '[http|https|ftp]://...')];
-		}
-		
-		return [];
-	}
-	function _trim () {
-		return $.trim(this.element.val());
-	}
-	
 	$.datepicker.setDefaults( $.datepicker.regional[ "" ] );
 	var fields = {
 		date: {
@@ -111,7 +62,25 @@
 			validate: _isUrl
 		}
 	};
+	
+	var url = /^\s*(?:https?|ftp):\/\/.+/;
+	function _isUrl(){
+		var value = this.get();
+		if(!value) {
+			return []; //необязательное поле
+		}
 		
+		var exec = url.exec(this.get());
+		if(!(exec && exec.length)){
+			return [new forms.Error('format', this.name, '[http|https|ftp]://...')];
+		}
+		
+		return [];
+	}
+	
+	function _trim () {
+		return $.trim(this.element.val());
+	}
 
 	var INVALID_CLASS = 'b-form__field_state_invalid',
 		ERR_MSG_CLASS = '.b-form__field-error-message';
@@ -142,14 +111,18 @@
 		$.isFunction(next) && next();
 		$(this).dialog('close');
 	}
-	
-	
+
 	function open(dialog, data, opts){
-		ready.success(function(){
+		onready(function(){
 			dialog.form.bind(data);
 			dialog.dlg.dialog('option', opts).dialog('open');
 		});
 	}
+	
+	onready(function(){
+		change =  _formDialog(templates['dialog-change'](), {}, fields);
+		textdata =  _formDialog(templates['dialog-textdata'](), {resizable: true, width: 'auto', maxWidth: 1000}, { data: {} });
+	});
 	
 	exports.create = function(elem, data, next){
 		open(change, data, {
