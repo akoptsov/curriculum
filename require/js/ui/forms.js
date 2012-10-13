@@ -9,8 +9,8 @@
 			format : function(format) {
 				return 'Формат для поля : ' + format;
 			},
-			'default': function() {
-				return 'Некорректные данные';
+			'default': function(message) {
+				return message;
 			}
 		};
 		return {
@@ -19,7 +19,7 @@
 		};
 	}
 
-	function Form(container, fieldOpts){
+	function Form(container, fieldOpts, validate){
 		this.container = container;
 		var fields = {},
 			self = this;
@@ -28,6 +28,12 @@
 			var field = new Field(self, name, opts);
 			field.element.length && (fields[name] = field);
 		});
+		
+		if(typeof validate === 'function'){
+			this.validate = function(){
+				return Form.prototype.validate.call(this).concat(validate.call(this));
+			}
+		}
 		
 		self.fields = fields;
 	};
