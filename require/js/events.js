@@ -57,6 +57,10 @@
 		}
 		
 		this.check = function (){
+			if (_happened) {
+				return;
+			}
+			
 			var args = Array.prototype.slice.call(arguments, 0);
 			if(condition.apply(this, args)){
 				_happened = true;

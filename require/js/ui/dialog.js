@@ -4,7 +4,7 @@
 	var events = require('js/events');
 	var templates = require('js/templates');
 	
-	require('jquery-ui');
+	require('jquery-ui.ru');
 	
 	var change;
 	var textdata;
@@ -14,7 +14,10 @@
 		var defaults = {
 			autoOpen: false,
 			modal: true,
-			resizable: false
+			resizable: false,
+			width: 'auto',
+			maxWidth: 600,
+			dialogClass: 'b-dialog'
 		};
 		
 		var res = {};

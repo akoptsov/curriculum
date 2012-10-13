@@ -1,0 +1,51 @@
+.b-content_browse .b-form__fields {
+	list-style-type: none;
+	margin: 0px;
+	padding: 10px 0px;
+	width: 400px;
+}
+
+.b-content_browse .b-form__field{
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+}
+
+.b-content_browse .b-form__field-label{
+
+}
+.b-content_browse .b-form__field-input{
+	margin-top: 3px;
+	resize:none;
+}
+
+.b-content_browse .b-form__field-input_type_area{
+	height: 5em;
+}
+
+.b-content_browse .b-form__field_size_half {
+	display: inline-block;
+	width: 195px;
+}
+
+.b-content_browse .b-form__field_size_half  .b-form__field-input{
+	width: 100%;
+}
+
+.b-content_browse .b-form__field_size_full .b-form__field-input {
+	width: 100%;
+}
+
+.b-content_browse .b-form__field_state_invalid .b-form__field-input {
+	border: 0;
+	-moz-box-shadow: 0 0 5px #ff0000;
+	-webkit-box-shadow: 0 0 5px #ff0000;
+	-ms-box-shadow: 0 0 5px #ff0000;
+	-o-box-shadow: 0 0 5px #ff0000;
+	box-shadow: 0 0 5px #ff0000;
+}
+
+.b-content_browse .b-form__field-error-message {
+	font-size: 0.7em;
+	font-style: italic;
+	color: #ff0000;
+}

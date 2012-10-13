@@ -1,0 +1,26 @@
+.b-dialog {
+	font-size: 1em;
+}
+
+.b-dialog  .ui-spinner {
+	margin-top: 3px;
+	max-width: 180px;
+}
+
+.b-dialog .ui-dialog-butttonpane {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.b-dialog .ui-button-text {
+	padding-top: 0.3em;
+	line-height: 1.2em;
+}
+
+.b-dialog .ui-dialog-titlebar {
+	margin: -0.3em;
+}
+
+.b-dialog .b-form__field-input.hasDatepicker {
+	margin-top: 5px;
+}

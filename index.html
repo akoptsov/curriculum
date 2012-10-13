@@ -4,8 +4,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Онлайн-расписание ШРИ</title>
-		<link type="text/css" rel="stylesheet" href="styles/browse.css"/>
 		<link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.9.0.custom.min.css"/>
+		<link type="text/css" rel="stylesheet" href="styles/index.css"/>
 	</head>
 	<body class="b-content b-content_browse">
 		<header class="b-content__header">
@@ -50,17 +50,19 @@
 				paths : {
 					'jquery': 'jquery-1.8.2.min',
 					'jquery-ui': 'jquery-ui-1.9.0.custom.min',
+					'jquery-ui.ru':'jquery.ui.datepicker.ru',
 					'handlebars': 'handlebars-1.0.rc.1'
 				},
 				shim: {
-					'jquery-ui': ['jquery', 'jquery.ui.datepicker.ru']
+					'jquery-ui': ['jquery'],
+					'jquery-ui.ru': ['jquery', 'jquery-ui']
 				},
 				config: {
 					'js/templates' : {
 						required: ['week', 'day', 'lecture', 'dialog-change', 'dialog-textdata']
 					}
 				},
-				urlArgs: '0.0.8'
+				urlArgs: '0.0.9'
 			};
 		</script>
 		<script src="require/require-2.0.6.min.js" data-main="js/main"></script>
