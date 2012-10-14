@@ -6,6 +6,7 @@
 	margin: 0px;
 	font-family: Verdana, Geneva, sans-serif;
 	
+	color: #404040;
 	font-size: 14px;
 }
 
@@ -15,9 +16,18 @@
 	height: 60px;
 
 	padding: 10px 0.5%;
-	border: solid black;
+	border: solid #aaa;
 	border-width: 0px 0px 1px 0px;
 	white-space: nowrap;
+	
+
+	background: url('/curriculum/img/light_alu.png') 0 0 repeat;
+	
+	-webkit-text-shadow: -1px -1px 0px #eee;
+	-moz-text-shadow: -1px -1px 0px #eee;
+	-ms-text-shadow: -1px -1px 0px #eee;
+	-o-text-shadow: -1px -1px 0px #eee;
+	text-shadow: -1px -1px 0px #eee;
 }
 
 /* TITLE */
@@ -26,198 +36,30 @@
 	line-height: 100%;
 	margin: 0px;
 	vertical-align: middle;
-}
-
-/* MENU */
-.b-content_browse .b-content__header .b-menu {
-	text-align: right;
-}
-
-.b-content_browse .b-menu_view_toolbar .b-menu__menu-item {
-	display: inline-block;
-	text-align: center;
-	padding: 5px 5px;
-	height: 20px;
-	min-width: 120px;
-	border: solid black 1px;
-	cursor: pointer;
-}
-
-.b-content_browse .b-menu_view_toolbar .b-menu__menu-item:hover {
-	color: red;
-	border-color: red;
-}
-
-/* CONTENT */
-.b-content_browse .b-content__wrapper {
-	position: absolute;
-	top: 81px;
-	bottom: 35px;
-	left: 0px;
-	right: 0px;
-	overflow: auto;
-}
-
-.b-content_browse .b-content__stub {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 0px;
-	height: 100%
-}
-
-.b-content_browse .b-curriculum {
-	margin: 0px auto;
-	display: table;
-	min-width: 1120px;
-	table-layout: fixed;
-	border-collapse: collapse;
 	
-	font-size: 12pt;
-}
-
-.b-content_browse .b-curriculum  .b-curriculum__week {
-	display: table-row;
-	
-	list-style-type: none;
-	padding: 0px;
-	margin: 0px;
-}
-
-.b-content_browse .b-curriculum__day {
-	display: table-cell;
-
-	width: 160px;
-	height: 120px;
-	
-	vertical-align: top;
-	text-align: left;
-	border: solid black 1px;
-	padding-bottom: 2em;
-	
-	-moz-user-select: none; 
-	-khtml-user-select: none; 
-	-webkit-user-select: none; 
-	-o-user-select: none; 
-	-ms-user-select: none; 
-	user-select: none; 
-}
-
-.b-content_browse .b-curriculum__day-header{
-	height: 2em;
-	line-height: 2em;
-	vertical-align: middle;
-	padding: 0px 5px;
-	font-size: 0.9em;
-}
-
-.b-content_browse .b-curriculum__day-date{
-	cursor: default;
-	height: 100%;
-}
-
-.b-content_browse .b-curriculum__day-name{
-	float: right;
-	cursor: default;
-}
-
-.b-content_browse .b-curriculum__day.b-curriculum__day_disabled {
-	background: #efefef;
-	color: #aeaeae;
-}
-
-.b-content_browse .b-curriculum__day:hover {
-	background-color: #ffeeaa;
-}
-
-.b-content_browse .b-curriculum__lectures-list{
-	padding: 0px;
-	margin: 0px;
-	list-style-type: none;
-}
-
-.b-content_browse .b-curriculum__lecture {
-	margin-bottom: 3px;
-	
-	background-color: #efffef;
-	
-	border-color: black;
-	border-style: solid;
-	border-width: 1px 0px;
-	
-	cursor: pointer;
-	
-}
-.b-content_browse  .b-curriculum__lecture-card{
-	position:absolute;
-	max-height: 0px;
-	max-width: 0px;
-	display: none;
-	background-color: #efffef;
-	
-}
-
-.b-content_browse .b-curriculum__lecture:hover  .b-curriculum__lecture-card, 
-.b-content_browse  .b-curriculum__lecture-card:hover {
-	display: block;
-	min-width: 161px;
-	min-height: 121px;
-	max-width: 322px;
-	max-height: 1000px;
-	padding: 5px;
-	border: solid black 1px;
-	margin-left: -1px;
-	margin-top: -1px;
-	
-	-webkit-transition: max-height 1s ease-in-out 0s;
-	-moz-transition: max-height 0.3s ease-in-out 0s;
-	-ms-transition: max-height 0.3s ease-in-out 0s;
-	-o-transition: max-height 0.3s ease-in-out 0s;
-	transition: max-height 0.3s ease-in-out 0s;
-}
-
-
-.b-content_browse .b-curriculum__lecture-title,
-.b-content_browse .b-curriculum__lecture-person {
-	display:block;
-	
-}
-
-.b-content_browse .b-curriculum__lecture-remove{
-	display:none;
-	float: right;
-}
-
-.b-content_browse .b-curriculum__lecture:hover .b-curriculum__lecture-remove{
-	display: inline;
-}
-
-.b-content_browse .b-curriculum__lecture-title
-{
-	font-size: 0.9em;
-}
-
-.b-content_browse .b-curriculum__lecture-person
-{
-	font-size: 0.7em;
-	font-style: italic;
 }
 
 /* FOOTER */
 .b-content_browse .b-content__footer {
+	background: url('/curriculum/img/light_alu.png') 0 0 repeat;
 	position: absolute;
 	bottom: 0px;
 	width: 100%;
 	height: 25px;
-	
+
 	padding-top: 10px;
 
 	text-align: center;
-	border: solid black;
+	border: solid #aaa;
 	border-width: 1px 0px 0px 0px;
 	
+	-webkit-text-shadow: -1px -1px 0px #eee;
+	-moz-text-shadow: -1px -1px 0px #eee;
+	-ms-text-shadow: -1px -1px 0px #eee;
+	-o-text-shadow: -1px -1px 0px #eee;
+	text-shadow: -1px -1px 0px #eee;
 }
-
+{% include css/index/menu/menu.css %}
 {% include css/index/form/form.css %}
 {% include css/index/dialog/dialog.css  %}
-{% include css/index/content/workspace.css %}
+{% include css/index/content/content.css %}

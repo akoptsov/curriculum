@@ -1,55 +1,57 @@
 ﻿<li class="b-curriculum__lecture">
 	<div class="b-curriculum__lecture-card">
-		<span class="b-curriculum__lecture-remove">Удалить</span>
-		<span class="b-curriculum__lecture-time">
+		<div class="b-curriculum__lecture-info">
+			<div class="b-curriculum__lecture-time">
+				((start))&nbsp;-&nbsp;((end))
+			</div>
+			<div class="b-curriculum__lecture-title">
+				((title))
+			</div>
+			((#if person.url ))
+			<a class="b-curriculum__lecture-person" href="(((person.url)))">
+				((person.name))
+			</a>
+			((else))
+			<span class="b-curriculum__lecture-person">
+				((person))
+			</span>
+			((/if))
+			<div class="b-curriculum__lecture-points">
+				((points))
+			</div>
+			<div class="b-curriculum__lecture-items">
+				((#if presentation))
+				<a class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation" target="blank" href="(((presentation)))">Презентация</a>
+				
+				((/if))
+				((# if video ))
+				<a class="b-curriculum__lecture-item b-curriculum__lecture-item_video" target="blank" href="(((video)))">Видео</a>
+				((/if))
+			</div>
+		</div>
+		<div class="b-curriculum__lecture-actions">
+			<span class="b-curriculum__lecture-action b-curriculum__lecture-action_change">Изменить</span>|<span class="b-curriculum__lecture-action b-curriculum__lecture-action_remove">Удалить</span>
+		</div>
+	</div>
+	<div class="b-curriculum__lecture-info">
+		<div class="b-curriculum__lecture-time">
 			((start))&nbsp;-&nbsp;((end))
-		</span>
-		<span class="b-curriculum__lecture-title">
+		</div>
+		<div class="b-curriculum__lecture-title">
 			((title))
-		</span>
-		((#if person.url ))
-		<a class="b-curriculum__lecture-person" href="(((person.url)))">
-			((person.name))
-		</a>
-		((else))
-		<span class="b-curriculum__lecture-person">
+		</div>
+		<div class="b-curriculum__lecture-person">
 			((person))
-		</span>
-		((/if))
-		<div class="b-curriculum__lecture-points">
-			((points))
 		</div>
 		<div class="b-curriculum__lecture-items">
 			((#if presentation))
-			<a class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation" href="(((presentation)))">
-				Презентация
-			</a>
+			<span class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation">
+			</span>
 			((/if))
 			((# if video ))
-			<a class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation" href="(((presentation)))">
-				Видео
-			</a>
+			<span class="b-curriculum__lecture-item b-curriculum__lecture-item_video">
+			</span>
 			((/if))
 		</div>
 	</div>
-	<span class="b-curriculum__lecture-remove">X</span>
-	<span class="b-curriculum__lecture-time">
-		((start))&nbsp;-&nbsp;((end))
-	</span>
-	<span class="b-curriculum__lecture-title">
-		((title))
-	</span>
-	<span class="b-curriculum__lecture-person">
-		((person))
-	</span>
-	<span class="b-curriculum__lecture-items">
-		((#if presentation))
-		<span class="b-curriculum__lecture-item b-curriculum__lecture-item_presentation">
-		</span>
-		((/if))
-		((# if video ))
-		<span class="b-curriculum__lecture-item b-curriculum__lecture-item_video">
-		</span>
-		((/if))
-	</span>
 </li>

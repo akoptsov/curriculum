@@ -1,9 +1,8 @@
-.b-content_browse .b-content__workspace  {
-
+.b-content_state_unloaded  .b-content__workspace  {
+	visibility: hidden;
 }
 
 .b-content_browse .b-content__workspace-control {
-	line-height: 30px;
 	height: 30px;
 	padding: 0px;
 	margin: 0px;
@@ -18,7 +17,21 @@
 	-ms-user-select: none; 
 	user-select: none; 
 }
+.b-content_browse .b-content__workspace-control_action_prepend {
+	line-height: 35px;
+}
+.b-content_browse .b-content__workspace-control_action_append{
+	line-height: 25px;
+}
 
 .b-content_browse .b-content__workspace-control:hover{
-	color: red;
+	text-decoration: underline;
+
+	/*
+	-moz-text-shadow: 0px 0px 10px green;
+	-webkit-text-shadow: 0px 0px 10px green;
+	-ms-text-shadow: 0px 0px 10px green;
+	-o-text-shadow: 0px 0px 10px green;
+	text-shadow: 0px 0px 10px green;
+	*/
 }
