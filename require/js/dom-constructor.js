@@ -36,6 +36,11 @@
 					data && data.length && model.init(data);
 				});
 			});
+			button.print.click(function(e){
+				_lock(function(){ 
+					storage.set('modeldata', model.lectures());
+				});
+			});
 		} else {
 			button.save.hide();
 			button.load.hide();
@@ -48,6 +53,7 @@
 					var obj;
 					
 					try { 
+						//JSON должен быть с двойными кавычками, что некруто. Исправлю, если успею.
 						obj = JSON.parse(text.data);
 					} catch(e) {
 						obj = '';
