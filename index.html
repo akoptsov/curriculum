@@ -6,15 +6,18 @@
 		<title>Онлайн-расписание ШРИ</title>
 		<link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.9.0.custom.min.css"/>
 		<link type="text/css" rel="stylesheet" href="styles/index.css"/>
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="html5.js"></script>
+		<![endif]-->
 	</head>
-	<body class="b-content b-content_browse">
-		<header class="b-content__header">
+	<body class="b-content b-content_browse b-content_state_unloaded">
+		<div class="b-content__header">
 			<h2 class="b-content__title">
 				<span>
 					Онлайн-расписание Школы Разработки Интерфейсов
 				</span>
 			</h2>
-			<div class="b-menu b-menu_view_toolbar b-menu_state_unloaded">
+			<div class="b-menu b-menu_view_toolbar">
 				<div class="b-menu__menu-item b-menu__menu-item_command_load">
 					<span class="b-menu__menu-item-name">Загрузить</span>
 				</div>
@@ -31,7 +34,7 @@
 					<span class="b-menu__menu-item-name">Печать</span>
 				</a>
 			</div>
-		</header>
+		</div>
 		<div class="b-content__wrapper">
 			<div class="b-content__stub"></div>
 			<div class="b-content__workspace">
@@ -47,7 +50,7 @@
 		</footer>
 		<script>
 			var require = {
-				baseUrl:'require',
+				baseUrl:'require/compiled',
 				paths : {
 					'jquery': 'jquery-1.8.2.min',
 					'jquery-ui': 'jquery-ui-1.9.0.custom.min',
@@ -66,7 +69,7 @@
 						viewport: 6
 					}
 				},
-				urlArgs: '0.1.1'
+				urlArgs: '0.1.2'
 			};
 		</script>
 		<script src="require/require-2.0.6.min.js" data-main="js/main"></script>

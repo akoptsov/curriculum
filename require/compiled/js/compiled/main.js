@@ -1,0 +1,1 @@
+define(["require","exports","module","jquery","js/storage","js/global","js/model-factory","js/ui/interaction"],function(e,t,n){var r=e("jquery"),i=e("js/storage"),s=e("js/global"),o=e("js/model-factory"),u=e("js/ui/interaction"),a=i.get("modeldata");u.init(new o.Model(a))})
