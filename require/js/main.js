@@ -6,7 +6,9 @@
 		ui = require('js/dom-constructor')
 	
 		
-		var data = storage.get('curriculum');
+		
+		var data = storage.get('modeldata');
+		/*
 		data = data || [
 			{
 				title: 'Дизайн глазами проектировщика интерфейсов',
@@ -39,7 +41,7 @@
 				end: '22:00',
 				date: '2012-10-29'
 			}
-		];
+		];*/
 		
 		ui.init(new factory.Model(data));
 
