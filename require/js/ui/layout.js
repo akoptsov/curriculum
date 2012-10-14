@@ -57,6 +57,7 @@
 		$.each(model.weeks, function(i, week){
 			_week(container, week);
 		});
+		_emitter.emit.call(container, 'init', model);
 	}
 
 	var _container = $('.b-curriculum');
@@ -69,7 +70,13 @@
 			}
 			
 			if(!(config && config['static'])){ 
-				model.on('clear', function() { _dayLectures=[], _container.empty(); });
+				
+				model.on('clear', function() { 
+					_dayLectures=[];
+					_container.empty(); 
+					_emitter.emit.call(_container, 'clear');
+				});
+				
 				model.on('init', function(){ _model(_container, this);});
 				model.on('week.prepend', function(week){ _week(_container, week, 'prepend');});
 				model.on('week.append', function(week){ _week(_container, week, 'append');});

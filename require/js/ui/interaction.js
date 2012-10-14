@@ -31,8 +31,6 @@
 			$(this).button();
 		});
 		
-		menu.addClass('b-menu_state_ready');
-		
 		button.save.button('disable');
 		button.load.button('disable');
 		
@@ -141,7 +139,7 @@
 			});
 
 			layout.on('new.lecture', function(lecture){
-				this.on('click', '.b-curriculum__lecture-remove', function(e){
+				this.on('click', '.b-curriculum__lecture-action_remove', function(e){
 					model.remove(lecture);
 					e.stopPropagation();
 				});
@@ -157,6 +155,17 @@
 					e.stopPropagation();
 				});
 			});
+			
+			var body = $(this.body);
+			
+			layout.on('clear', function(){
+				body.addClass('b-content_state_unloaded');
+			});
+			
+			layout.on('init', function(){
+				body.removeClass('b-content_state_unloaded');
+			});
+			
 
 			_menu(model);
 			layout.init(model);
