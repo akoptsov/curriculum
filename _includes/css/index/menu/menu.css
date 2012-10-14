@@ -1,0 +1,24 @@
+.b-content_browse  .b-menu{
+	text-align: right;
+}
+
+.b-content_state_unloaded .b-menu {
+	visibility: hidden;
+}
+
+.b-content_browse .b-menu_view_toolbar .b-menu__menu-item {
+	display: inline-block;
+	text-align: center;
+	padding: 5px 5px;
+	height: 20px;
+	min-width: 120px;
+	/*border: solid black 1px;*/
+	/*cursor: pointer;*/
+}
+
+.b-content_browse .b-menu_view_toolbar .b-menu__menu-item:hover {
+	/*color: red;
+	border-color: red;*/
+}
+
+{% include css/index/menu/buttons.css%}
