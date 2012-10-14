@@ -8,40 +8,8 @@
 		
 		
 		var data = storage.get('modeldata');
-		/*
-		data = data || [
-			{
-				"title": "Дизайн глазами проектировщика интерфейсов",
-				"person": "Иванов С.П.",
-				"start": "10:00",
-				"end": "11:30",
-				"date": "2012-09-15"
-			},{
-				"title": "Проектирование глазами дизайнера",
-				"person": "Петров А.Д.",
-				"start": "10:00",
-				"end": "11:30",
-				"date": "2012-09-29"
-			}, {
-				"title": "Кроссдоменная передача данных",
-				"person": "Джейсон П.",
-				"start": "19:00",
-				"end": "20:00",
-				"date": "2012-09-16"
-			}, {
-				"title": "Новые технологии HTML5",
-				"person": "Шестой И.Е.",
-				"start": "20:00",
-				"end": "21:00",
-				"date": "2012-09-16"
-			}, {
-				"title": "Далёкая лекция, чо",
-				"person": "Слоуп О.К.",
-				"start": "19:00",
-				"end": "22:00",
-				"date": "2012-10-29"
-			}
-		];*/
+		
+		data = data || [{"date":"2012-09-15","start":"12:00","end":"13:00","title":"Общий цикл разработки","person":"Миша Трошев (mishanga)","points":"Всем привет. Школу мы проводим впервые, поэтому хотим, чтобы не только мы помогали вам развиваться, но и наоборот. Мы планируем по каждой лекции собирать ваши замечания, понять понравился ли вам рассказ, как вы оцениваете лекторов. В опросе будут чекбоксы, но хотелось бы увидеть и развернутые ответы в комментариях.","presentation":"http://yadi.sk/d/VDsJ4ZUBiq6u","video":"http://static.video.yandex.ru/lite/ya-events/yb1ix4ck06.4829"},{"date":"2012-09-15","start":"13:00","end":"14:00","title":"Системы ведения задач","person":"Сергей Бережной","points":"","presentation":"http://yadi.sk/d/D5xTwoIciq6c","video":""},{"date":"2012-09-15","start":"14:00","end":"15:00","title":"Wiki","person":"Сергей Бережной (veged)","points":"","presentation":"http://yadi.sk/d/7F9PuECdiq6G","video":""},{"date":"2012-09-18","start":"19:00","end":"20:00","title":"Командная строка Unix","person":"Виктор Ашик","points":"","presentation":"http://yadi.sk/d/3N0d6h9rlRA8","video":"http://static.video.yandex.ru/lite/ya-events/qxv95xwi4q.4820"},{"date":"2012-09-18","start":"20:00","end":"21:00","title":"Редакторы \\ Средства разработки","person":"Вячеслав Олиянчук","points":"","presentation":"https://github.com/yandex-shri/lectures/blob/master/05-editors.md","video":"http://static.video.yandex.ru/lite/ya-events/h4kt5t9a07.4101"},{"date":"2012-09-20","start":"19:00","end":"20:00","title":"Браузеры","person":"Георгий Мостоловица","points":"","presentation":"http://yadi.sk/d/-VjNYqjTqTca","video":"http://static.video.yandex.ru/lite/ya-events/hvbwev4zfw.3829"},{"date":"2012-09-20","start":"20:00","end":"21:00","title":"Системы контроля версий","person":"Сергей Сергеев","points":"","presentation":"http://yadi.sk/d/a7aY8YXjr-hs","video":"http://static.video.yandex.ru/lite/ya-events/udxty33q8y.4106"},{"date":"2012-09-22","start":"12:00","end":"13:00","title":"Тестирование","person":"Марина Широчкина","points":"","presentation":"http://yadi.sk/d/W7lDOetHqTWC","video":"http://static.video.yandex.ru/lite/ya-events/xc8acgglq0.1103"},{"date":"2012-09-22","start":"13:00","end":"14:00","title":"Развертывание верстки","person":"Павел Пушкарев","points":"","presentation":"http://yadi.sk/d/N4FYrhS3qTSI","video":"http://static.video.yandex.ru/lite/ya-events/eh1gwaf93n.4603"},{"date":"2012-09-22","start":"14:00","end":"15:00","title":"HTTP-протокол","person":"Алексей Бережной","points":"Любые сходства фамилий и внешности с другими лекторами НЕ являются случайными.","presentation":"http://yadi.sk/d/waP8x8maqTKM","video":"http://static.video.yandex.ru/lite/ya-events/pnqglhihpo.3500"},{"date":"2012-09-24","start":"19:00","end":"21:00","title":"XML, XPath, XSLT","person":"Сергей Пузанков","points":"","presentation":"http://yadi.sk/d/PLpXM88frhSW","video":""},{"date":"2012-09-25","start":"19:00","end":"20:00","title":"Механизм работы браузера","person":"Роман Комаров","points":"","presentation":"http://yadi.sk/d/wo1LfOGatbOM","video":""},{"date":"2012-09-25","start":"20:00","end":"21:00","title":"Кеширование на клиенте и сервере","person":"Егор Львовский","points":"","presentation":"http://yadi.sk/d/EEEp53YstbNo","video":"http://static.video.yandex.ru/lite/ya-events/7c5917p3z8.4920/"},{"date":"2012-09-27","start":"19:00","end":"20:00","title":"Безопасность веб-приложений","person":"Тарас Иващенко","points":"","presentation":"http://yadi.sk/d/bo1OpD2Av3vC","video":""},{"date":"2012-09-27","start":"20:00","end":"21:00","title":"Языки программирования","person":"Алексей Воинов","points":"","presentation":"http://yadi.sk/d/LRpqvLuIv4UI","video":""},{"date":"2012-09-29","start":"12:00","end":"13:00","title":"JS. Базовые знания","person":"Михаил Давыдов","points":"","presentation":"","video":""},{"date":"2012-09-29","start":"13:00","end":"14:00","title":"Транспорт. AJAX","person":"Михаил Давыдов","points":"","presentation":"","video":""},{"date":"2012-09-29","start":"14:00","end":"15:00","title":"JS. Асинхронность","person":"Михаил Давыдов","points":"","presentation":"","video":""},{"date":"2012-10-02","start":"19:00","end":"20:00","title":"Отладка кода","person":"Алексей Андросов","points":"","presentation":"","video":""},{"date":"2012-10-04","start":"19:00","end":"20:00","title":"Клиентская оптимизация","person":"Иван Карев","points":"","presentation":"","video":""},{"date":"2012-10-04","start":"20:00","end":"21:00","title":"Profiler","person":"Михаил Корепанов","points":"","presentation":"","video":""},{"date":"2012-10-06","start":"12:00","end":"13:00","title":"CSS","person":"Михаил Трошев (mishanga)","points":"","presentation":"","video":""},{"date":"2012-10-06","start":"13:00","end":"14:00","title":"Регулярные выражения","person":"Максим Ширшин","points":"","presentation":"","video":""},{"date":"2012-10-09","start":"19:00","end":"20:00","title":"Фреймворки. Обзор","person":"Алексей Андросов","points":"","presentation":"","video":""},{"date":"2012-10-09","start":"20:00","end":"21:00","title":"jQuery","person":"Алексей Бережной","points":"","presentation":"","video":""},{"date":"2012-10-11","start":"19:00","end":"20:00","title":"БЭМ. Теория","person":"Владимир Варанкин","points":"","presentation":"","video":""},{"date":"2012-10-11","start":"20:00","end":"21:00","title":"БЭМ. Примеры","person":"Владимир Варанкин","points":"","presentation":"","video":""},{"date":"2012-10-13","start":"12:00","end":"13:00","title":"Шаблонизаторы","person":"Сергей Бережной (veged)","points":"","presentation":"","video":""},{"date":"2012-10-13","start":"13:00","end":"14:00","title":"Дизайн","person":"Константин Горский","points":"","presentation":"","video":""},{"date":"2012-10-13","start":"14:00","end":"15:00","title":"Дизайн глазами разработчика","person":"Михаил Трошев (mishanga)","points":"","presentation":"","video":""},{"date":"2012-10-14","start":"23:59","end":"00:00","title":"Сдаёмся!","person":"Все участники ШРИ","points":"","presentation":"","video":""}];
 		
 		ui.init(new factory.Model(data));
 
