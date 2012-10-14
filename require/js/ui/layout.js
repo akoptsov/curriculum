@@ -72,7 +72,7 @@
 			}
 			
 			if(!(config && config['static'])){ 
-				model.on('clear', function() {_container.empty(); });
+				model.on('clear', function() { _dayLectures=[], _container.empty(); });
 				model.on('init', function(){ _model(_container, this);});
 				model.on('week.prepend', function(week){ _week(_container, week, 'prepend');});
 				model.on('week.append', function(week){ _week(_container, week, 'append');});

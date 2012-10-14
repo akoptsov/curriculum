@@ -221,8 +221,10 @@
 				}
 			}
 			
-			if(_config && _config.viewport && _weeks.length < _config.viewport) {
-				firstWeek(new Date());
+			if(_config && _config.viewport) {
+				if(!_weeks.length) {
+					firstWeek(new Date());
+				}
 				while(_weeks.length < _config.viewport){
 					appendWeek();
 				}
