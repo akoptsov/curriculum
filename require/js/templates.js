@@ -26,10 +26,16 @@
 			return;
 		};
 		
-		var matches;
+		var matches,
+			map = {
+				'(': '{', 
+				 ')': '}'
+			};
 		while(matches = re.exec(text)){
 			for(var i = 0, count = matches.length; i < count; i++) {
-				exports[matches[1]] = Handlebars.compile(matches[2]);
+				exports[matches[1]] = Handlebars.compile(matches[2].replace(/[\(\)]/g, function(m){ 
+					return map[m] || m; 
+				}));
 				ready.check();
 			}
 		}

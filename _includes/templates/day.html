@@ -1,15 +1,13 @@
-﻿{% raw %}
-<li class="b-curriculum__day {{#unless lectures.length}}b-curriculum__day_state_empty {{/unless}}">
+﻿<li class="b-curriculum__day ((#unless lectures.length))b-curriculum__day_state_empty ((/unless))">
 	<div class="b-curriculum__day-header">
 		<span class="b-curriculum__day-date">
-			{{display.date}}
+			((display.date))
 		</span>
 		<span class="b-curriculum__day-name">
-			{{display.day}}
+			((display.day))
 		</span>
 	</div>
 	<ul	class="b-curriculum__lectures-list">
 
 	</ul>
 </li>
-{% endraw %}
