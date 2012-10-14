@@ -57,7 +57,7 @@
 			return this._topzero(~~(value / 60)) + ':' + this._topzero(value % 60);
 		},
 		_topzero: function(n){
-			return n < 10 ? '0' + n : n
+			return (n < 10 ? '0' : '') + n;
 		},
 		_int: _int
 	});

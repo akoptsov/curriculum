@@ -67,7 +67,7 @@
 }
 
 .b-content_browse .b-curriculum {
-	margin: 5% auto;
+	margin: 0px auto;
 	display: table;
 	min-width: 1120px;
 	table-layout: fixed;
@@ -91,6 +91,7 @@
 	height: 120px;
 	
 	vertical-align: top;
+	text-align: left;
 	border: solid black 1px;
 	padding-bottom: 2em;
 	
@@ -219,3 +220,4 @@
 
 {% include css/index/form/form.css %}
 {% include css/index/dialog/dialog.css  %}
+{% include css/index/content/workspace.css %}

@@ -1,5 +1,6 @@
 ﻿define(function(require, exports, module) {
 	var events = require('./events');
+	var _config = module.config();
 	
 	function proxy(context, func){
 		return function(){
@@ -79,7 +80,7 @@
 		
 		this.emit('add', i, lecture);
 		
-		return this;
+		return i;
 	}
 	
 	Day.prototype.remove = function(lecture) {
@@ -93,9 +94,10 @@
 		
 		if (i < length) {
 			this.emit('remove', i, lectures.splice(i, 1));
+			return i;
 		}
-
-		return this;
+		
+		return -1;
 	}
 	
 	function Week(date) {
@@ -125,28 +127,34 @@
 			_start,
 			_end;
 			
-			var self = this;
-			_emitter = new events.Emitter();
-			
+			var _emitter = new events.Emitter();
+			var _emit = proxy(this, _emitter.emit);
 		
-		function add(lecture){
+		function add(lecture) {
 			if(!lecture.date) {
 				console.error('can\'t add a lecture without date!');
 			}
-			day(lecture.date).add(lecture);
+			
+			var day = modelDay(lecture.date),
+				position = day.add(lecture);
+			_emit('lecture.add', lecture, day, position);
+		}
+		
+		function remove(lecture) {
+			if(!lecture.date){
+				console.error('can\'t remove lecture without a date!');
+			}
+			var day = modelDay(lecture.date),
+				position = day.remove(lecture);
+			_emit('lecture.remove', lecture, day, position);
 		}
 
-		function day(isoDate) {
+		function modelDay(isoDate) {
 			var date = fromISODate(isoDate);
 			
 			var week;
-			if(!_weeks.length) {
-				week = new Week(date); 
-				
-				_weeks.push(week);
-				_start = new Date(week.monday);
-				_end = new Date(week.sunday);
-				
+			if(!_start && !_end) {
+				week = firstWeek(date);
 			} else {
 				while(_start > date) {
 					week = prependWeek();
@@ -164,11 +172,23 @@
 			return week && week.day(date);
 		}
 		
+		
+		function firstWeek(date){
+			var week = new Week(date); 
+
+			_weeks.push(week);
+			_start = new Date(week.monday);
+			_end = new Date(week.sunday);
+			_emit('week.append', week);
+			return week;
+		}
+		
 		function prependWeek() {
 			_start.setDate(_start.getDate() - 7);
 			
 			var newWeek = new Week(_start);
 			_weeks.splice(0, 0, newWeek);
+			_emit('week.prepend', newWeek);
 			return newWeek;
 		}
 		
@@ -177,23 +197,39 @@
 			
 			var newWeek = new Week(_end);
 			_weeks.push(newWeek);
+			_emit('week.append', newWeek);
 			return newWeek;
 		}
 
+		var self = this;
+		function clear() {
+			self.weeks = _weeks = [];
+			_start = _end = undefined;
+			_emit('clear');
+		}
+		
 		function init(lectures){
 			if(_weeks.length){
-				self.weeks = _weeks = [];
-				_emitter.emit('clear');
+				clear();
 			}
 			
-			if(lectures.length) {
+			var emit = _emit;
+			_emit = function noevents(){};
+			if(lectures && lectures.length) {
 				for(var i = 0, count = lectures.length; i < count; i++){
 					add(lectures[i]);
 				}
 			}
 			
-
-			_emitter.emit('init');
+			if(_config && _config.viewport && _weeks.length < _config.viewport) {
+				firstWeek(new Date());
+				while(_weeks.length < _config.viewport){
+					appendWeek();
+				}
+			}
+			_emit = emit;
+			
+			_emit('init');
 		}
 		
 		function lectures() {
@@ -209,15 +245,18 @@
 		}
 		
 		this.weeks = _weeks;
+		this.appendWeek = appendWeek;
+		this.prependWeek = prependWeek;
+		
 		this.lectures = lectures;
 		this.add = add;
+		this.remove = remove;
 		this.init = init;
 		
-		this.emit = proxy(this, _emitter.emit);
 		this.on = proxy(this, _emitter.on);
 		this.off = proxy(this, _emitter.off);
 		
-		data && init(data);
+		init(data);
 	};
 	
 	exports.Model = Model;

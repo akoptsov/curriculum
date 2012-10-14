@@ -1,0 +1,24 @@
+.b-content_browse .b-content__workspace  {
+
+}
+
+.b-content_browse .b-content__workspace-control {
+	line-height: 30px;
+	height: 30px;
+	padding: 0px;
+	margin: 0px;
+	
+	text-align: center;
+	cursor: default;
+	
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none; 
+	-ms-user-select: none; 
+	user-select: none; 
+}
+
+.b-content_browse .b-content__workspace-control:hover{
+	color: red;
+}

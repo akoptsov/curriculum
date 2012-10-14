@@ -36,9 +36,12 @@
 		</header>
 		<div class="b-content__wrapper">
 			<div class="b-content__stub"></div>
-
-			<div class="b-curriculum">
-				
+			<div class="b-content__workspace">
+				<div class="b-content__workspace-control b-content__workspace-control_action_prepend">Предыдущая неделя</div>
+				<div class="b-curriculum">
+					
+				</div>
+				<div class="b-content__workspace-control b-content__workspace-control_action_append">Следующая неделя</div>
 			</div>
 		</div>
 		<footer class="b-content__footer">
@@ -60,9 +63,12 @@
 				config: {
 					'js/templates' : {
 						required: ['week', 'day', 'lecture', 'dialog-change', 'dialog-textdata']
+					},
+					'js/model-factory' : {
+						viewport: 6
 					}
 				},
-				urlArgs: '0.0.9'
+				urlArgs: '0.0.10'
 			};
 		</script>
 		<script src="require/require-2.0.6.min.js" data-main="js/main"></script>
