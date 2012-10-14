@@ -25,10 +25,7 @@
 				$(children[position]).remove();
 				_emitter.emit.call(container, 'removed.lecture', lecture);
 			}
-		}/*,
-		redraw: function(widget, lecture) {
-			widget.replaceWith($(template.lecture))
-		}*/
+		}
 	}
 
 	_dayLectures = {}

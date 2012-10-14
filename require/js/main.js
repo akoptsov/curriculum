@@ -3,7 +3,7 @@
 		storage = require('js/storage'),
 		global = require('js/global'),
 		factory = require('js/model-factory'),
-		ui = require('js/dom-constructor')
+		ui = require('js/ui/interaction')
 	
 		
 		
